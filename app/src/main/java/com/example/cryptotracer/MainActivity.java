@@ -55,7 +55,53 @@ public class MainActivity extends AppCompatActivity {
         currencyRV.setAdapter(currencyRVAdapter);
 
         // calling get data method to get data from API.
-        getData();
+        getCurrentData();
 
+    }
+
+    private void getCurrentData() {
+        loadingPB.setVisibility(View.VISIBLE);
+        String url="https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest";
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                loadingPB.setVisibility(View.GONE);
+                try {
+                    JSONArray dataArray = response.getJSONArray("data");
+                    for (int i = 0; i < dataArray.length(); i++) {
+                        JSONObject dataObj = dataArray.getJSONObject(i);
+                        String symbol = dataObj.getString("symbol");
+                        String name = dataObj.getString("name");
+                        JSONObject quote = dataObj.getJSONObject("quote");
+                        JSONObject USD = quote.getJSONObject("USD");
+                        double price = USD.getDouble("price");
+                        // adding all data to our array list.
+                        currencyModalArrayList.add(new currencyRVModal(name,symbol,price));
+                    }
+                    currencyRVAdapter.notifyDataSetChanged();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(MainActivity.this, "Something went amiss. Please try again later", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                loadingPB.setVisibility(View.GONE);
+                Toast.makeText(MainActivity.this, "SOMETHING WNT WRONG", Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            public Map<String, String> getHeaders() {
+                // in this method passing headers as
+                // key along with value as API keys.
+                HashMap<String, String> headers = new HashMap<>();
+                headers.put("X-CMC_PRO_API_KEY", "8318e278-2733-4043-8d00-e9537e03cd71");
+                // at last returning headers
+                return headers;
+            }
+        };
+        requestQueue.add(jsonObjectRequest);
+        }
     }
 }

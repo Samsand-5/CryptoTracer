@@ -11,10 +11,10 @@
     <EditText
         android:id="@+id/idEdtCurrency"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_margin="8dp"
         android:focusable="auto"
-        android:hint="Search Currency"
+        android:hint="@string/search_currency"
         android:textColor="@color/white"
         android:textColorHint="@color/white" />
 
@@ -24,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/idEdtCurrency"
-        tools:listitem="@layout/currency_rv_item" />
+        tools:listitem="" />
 
     <!--progress bar for loading indicator-->
     <ProgressBar

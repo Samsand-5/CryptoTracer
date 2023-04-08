@@ -34,4 +34,4 @@ public class CurrencyModal {
         this.price = price;
     }
 }
-}
+

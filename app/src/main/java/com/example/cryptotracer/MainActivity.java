@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView currencyRV;
     private EditText searchEdt;
     private ArrayList<CurrencyModal> currencyModalArrayList;
-    private CurrencyRVAdapter currencyRVAdapter;
+    private com.example.cryptotracer.currencyRVAdapter currencyRVAdapter;
     private ProgressBar loadingPB;
 
     @Override
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         currencyModalArrayList = new ArrayList<>();
 
         // initializing our adapter class.
-        currencyRVAdapter = new CurrencyRVAdapter(currencyModalArrayList, this);
+        currencyRVAdapter = new currencyRVAdapter(currencyModalArrayList, this);
 
         // setting layout manager to recycler view.
         currencyRV.setLayoutManager(new LinearLayoutManager(this));

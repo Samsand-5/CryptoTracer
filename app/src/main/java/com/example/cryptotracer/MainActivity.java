@@ -57,8 +57,46 @@ public class MainActivity extends AppCompatActivity {
         // calling get data method to get data from API.
         getCurrentData();
 
+        searchEdt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+               // on below line calling a method to filter our array list
+                filterCurrencies(editable.toString());
+            }
+        });
     }
 
+    private void filterCurrencies(String filter) {
+        // on below line we are creating a new array list
+        // for storing our filtered data.
+        ArrayList<currencyRVModal> filteredlist = new ArrayList<>();
+        // running a for loop to search the data from our array list.
+        for (currencyRVModal item : currencyModalArrayList) {
+            // on below line we are getting the item which are
+            // filtered and adding it to filtered list.
+            if (item.getName().toLowerCase().contains(filter.toLowerCase())) {
+                filteredlist.add(item);
+            }
+        }
+        // on below line we are checking
+        // weather the list is empty or not.
+        if (filteredlist.isEmpty()) {
+            Toast.makeText(this, "No currency found..", Toast.LENGTH_SHORT).show();
+        } else {
+            // on below line we are calling a filter list method to filter our list.
+            currencyRVAdapter.filterList(filteredlist);
+        }
+    }
     private void getCurrentData() {
         loadingPB.setVisibility(View.VISIBLE);
         String url="https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest";

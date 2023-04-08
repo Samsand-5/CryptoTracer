@@ -17,18 +17,18 @@ import java.util.ArrayList;
 // and our View Holder class which we have created.
 public class currencyRVAdapter extends RecyclerView.Adapter<currencyRVAdapter.CurrencyViewholder> {
     private static DecimalFormat df2 = new DecimalFormat("#.##");
-    private ArrayList<CurrencyModal> currencyModals;
+    private ArrayList<currencyRVModal> currencyRVModelArrayList;
     private Context context;
 
-    public currencyRVAdapter(ArrayList<CurrencyModal> currencyModals, Context context) {
-        this.currencyModals = currencyModals;
+    public currencyRVAdapter(ArrayList<currencyRVModal> currencyRVModelArrayList, Context context) {
+        this.currencyRVModelArrayList = currencyRVModelArrayList;
         this.context = context;
     }
 
     // below is the method to filter our list.
-    public void filterList(ArrayList<CurrencyModal> filterlist) {
+    public void filterList(ArrayList<currencyRVModal> filterlist) {
         // adding filtered list to our array list and notifying data set changed
-        currencyModals = filterlist;
+        currencyRVModelArrayList = filterlist;
         notifyDataSetChanged();
     }
 
@@ -44,7 +44,7 @@ public class currencyRVAdapter extends RecyclerView.Adapter<currencyRVAdapter.Cu
     @Override
     public void onBindViewHolder(@NonNull currencyRVAdapter.CurrencyViewholder holder, int position) {
         // on below line we are setting data to our item of recycler view and all its views.
-        CurrencyModal modal = currencyModals.get(position);
+        currencyRVModal modal = currencyRVModelArrayList.get(position);
         holder.nameTV.setText(modal.getName());
         holder.rateTV.setText("$ " + df2.format(modal.getPrice()));
         holder.symbolTV.setText(modal.getSymbol());
@@ -53,7 +53,7 @@ public class currencyRVAdapter extends RecyclerView.Adapter<currencyRVAdapter.Cu
     @Override
     public int getItemCount() {
         // on below line we are returning the size of our array list.
-        return currencyModals.size();
+        return currencyRVModelArrayList.size();
     }
 
     // on below line we are creating our view holder class which will be used to initialize each view of our layout file.

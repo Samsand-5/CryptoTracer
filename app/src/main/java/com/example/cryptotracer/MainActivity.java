@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         // on below line we are checking
-        // weather the list is empty or not.
+        // whether the list is empty or not.
         if (filteredlist.isEmpty()) {
             Toast.makeText(this, "No currency found..", Toast.LENGTH_SHORT).show();
         } else {
